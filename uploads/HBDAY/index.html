@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>For You, With Love ❤️</title>
+  <meta name="description" content="A magical birthday surprise made with love and care." />
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💖</text></svg>" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <!-- Custom Cursor -->
+  <div id="custom-cursor"></div>
+  <div id="cursor-trail"></div>
+
+  <!-- Preloader -->
+  <div id="preloader">
+    <div class="preloader-sparkles" id="preloaderSparkles"></div>
+    <div class="preloader-cat">😺</div>
+    <div class="preloader-hearts"><span>💖</span><span>💗</span><span>💖</span></div>
+    <p class="preloader-text">Preparing your birthday surprise...</p>
+  </div>
+
+  <!-- Background Glows -->
+  <div class="bg-glow glow-1"></div>
+  <div class="bg-glow glow-2"></div>
+  <div class="bg-glow glow-3"></div>
+
+  <!-- Animated Doodles -->
+  <div id="doodles-layer"></div>
+
+  <!-- Particles Canvas -->
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- Lock Popup -->
+  <div class="lock-popup-overlay" id="lockPopup">
+    <div class="lock-popup">
+      <div class="cat-shake">🙀</div>
+      <p class="handwritten" style="margin-top:16px;">Not yet... Come back on your birthday ❤️</p>
+      <button class="btn-glow" style="margin-top:20px;" onclick="closeLockPopup()">Okay 💕</button>
+    </div>
+  </div>
+
+  <!-- Easter Egg Popup -->
+  <div class="easter-popup" id="easterPopup"></div>
+
+  <!-- Navigation Dots -->
+  <nav class="nav-dots" id="navDots"></nav>
+
+  <!-- ═══════════════════════════════════════════
+       PHASE 1 — Pre-Birthday Journey
+       ═══════════════════════════════════════════ -->
+
+  <!-- Page 1: Welcome -->
+  <section class="page-section phase1" id="sec-welcome">
+    <div class="section-inner">
+      <div class="glass-card">
+        <span class="tag">A little place made with care</span>
+        <h1 class="title-hero">Welcome ✨</h1>
+        <img class="welcome-photo" id="welcomePhoto" src="WhatsApp Image 2026-07-24 at 10.57.51 PM.jpeg"
+          alt="A warm photo" />
+        <p class="handwritten" style="max-width:500px;margin:20px auto;">
+          I made this little place with care. Thank you for taking a moment to visit.
+        </p>
+        <div style="margin-top:28px;">
+          <button class="btn-glow" onclick="scrollToSection('sec-apology')">Continue →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Page 2: Apology -->
+  <section class="page-section phase1" id="sec-apology">
+    <div class="section-inner">
+      <div class="paper-card">
+        <div class="floating-petals" id="apologyPetals"></div>
+        <span class="tag">A few words from the heart</span>
+        <h2 class="title-section">For You, Hetuuu</h2>
+        <div class="paper-lines" id="apologyText"></div>
+        <div class="apology-cat" id="apologyCat">😸</div>
+        <div style="margin-top:28px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+          <button class="btn-ghost" onclick="scrollToSection('sec-welcome')">← Back</button>
+          <button class="btn-glow" onclick="scrollToSection('sec-encourage')">Continue →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Page 3: Encouragement -->
+  <section class="page-section phase1" id="sec-encourage">
+    <div class="section-inner">
+      <div class="glass-card">
+        <span class="tag">A gentle reminder</span>
+        <h2 class="title-section">Believe In Yourself 🌟</h2>
+        <p class="subtitle">You are more capable than you even realize.</p>
+        <div class="motivation-grid" id="motivGrid"></div>
+        <div style="margin-top:32px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+          <button class="btn-ghost" onclick="scrollToSection('sec-apology')">← Back</button>
+          <button class="btn-glow" onclick="scrollToSection('sec-countdown')">Continue →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Page 4: Countdown -->
+  <section class="page-section phase1" id="sec-countdown">
+    <div class="section-inner">
+      <div class="glass-card">
+        <span class="tag">Before the surprise</span>
+        <h2 class="title-section">Your Birthday Surprise</h2>
+        <p class="subtitle">is almost here ❤️</p>
+        <div class="countdown-grid">
+          <div class="countdown-tile"><span class="num" id="c-days">00</span><span class="label">Days</span></div>
+          <div class="countdown-tile"><span class="num" id="c-hours">00</span><span class="label">Hours</span></div>
+          <div class="countdown-tile"><span class="num" id="c-mins">00</span><span class="label">Minutes</span></div>
+          <div class="countdown-tile"><span class="num" id="c-secs">00</span><span class="label">Seconds</span></div>
+        </div>
+        <p class="handwritten" style="margin-top:16px;">Your birthday surprise will open on 22 August ❤️</p>
+        <div class="sleeping-cat-countdown">😴</div>
+        <div style="margin-top:24px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+          <button class="btn-ghost" onclick="scrollToSection('sec-encourage')">← Back</button>
+          <button class="btn-glow" id="peekBtn" onclick="showLockPopup()">See You On 22 August ❤️</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       UNLOCK ANIMATION OVERLAY
+       ═══════════════════════════════════════════ -->
+  <div id="unlock-overlay">
+    <div class="unlock-stars" id="unlockStars"></div>
+    <div class="heart-burst" id="heartBurst"></div>
+    <p class="unlock-text">✨ The surprise is here ✨</p>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════
+       PHASE 2 — Birthday Experience (Hidden)
+       ═══════════════════════════════════════════ -->
+  <div class="phase2-content" id="phase2">
+
+    <!-- Birthday Hero -->
+    <section class="page-section" id="sec-hero">
+      <div class="section-inner" style="position:relative;">
+        <span class="tag">Happy Birthday</span>
+        <h1 class="title-hero">Happy Birthday,<br />Hetuuu ❤️</h1>
+        <p class="subtitle">Today is all about celebrating someone truly wonderful.</p>
+        <img class="hero-portrait" id="heroPortrait" src="WhatsApp Image 2026-07-24 at 10.57.51 PM (1).jpeg"
+          alt="Birthday portrait" />
+        <div id="floatingEmojis"></div>
+      </div>
+    </section>
+
+    <!-- Birthday Letter -->
+    <section class="page-section" id="sec-letter">
+      <div class="section-inner">
+        <span class="tag">A birthday letter</span>
+        <h2 class="title-section">My Wish For You</h2>
+        <div class="letter-paper">
+          <div class="letter-text" id="letterText"></div>
+          <div class="letter-cat">😺</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Believe In Yourself -->
+    <section class="page-section" id="sec-believe">
+      <div class="section-inner">
+        <span class="tag">Never forget</span>
+        <h2 class="title-section">You Are Amazing ✨</h2>
+        <div class="reasons-grid" id="reasonsGrid"></div>
+      </div>
+    </section>
+
+    <!-- Photo Gallery -->
+    <section class="page-section" id="sec-gallery">
+      <div class="section-inner" style="max-width:860px;">
+        <span class="tag">Photo gallery</span>
+        <h2 class="title-section">Beautiful Memories 📸</h2>
+        <div class="gallery-masonry" id="galleryGrid"></div>
+      </div>
+    </section>
+
+    <!-- Scrapbook -->
+    <section class="page-section" id="sec-scrapbook">
+      <div class="section-inner">
+        <span class="tag">Memory scrapbook</span>
+        <h2 class="title-section">Pages of Us 📖</h2>
+        <p class="subtitle">Click the pages or buttons to turn them</p>
+        <div class="scrapbook-wrapper">
+          <div class="book" id="scrapbook"></div>
+          <div class="book-nav">
+            <button class="btn-ghost" style="padding: 10px 20px;" id="prevPageBtn">← Prev</button>
+            <span id="pageProgress">1 / 1</span>
+            <button class="btn-glow" style="padding: 10px 20px;" id="nextPageBtn">Next →</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Videos -->
+    <section class="page-section" id="sec-video">
+      <div class="section-inner">
+        <span class="tag">Special birthday video</span>
+        <h2 class="title-section">For Your Eyes Only 🎬</h2>
+        <div id="videoContainer"></div>
+      </div>
+    </section>
+
+    <!-- Final Wishes -->
+    <section class="page-section" id="sec-wishes">
+      <div class="section-inner">
+        <div class="glass-card">
+          <span class="tag">Final wishes</span>
+          <h2 class="title-section">With All My Heart</h2>
+          <div id="wishList" style="margin-top:24px;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ending -->
+    <section class="ending-sky" id="sec-ending">
+      <div class="ending-stars" id="endingStars"></div>
+      <div class="moon" id="moonEgg"></div>
+      <div id="endingFireflies"></div>
+      <div class="ending-content">
+        <div class="ending-heart" id="heartEgg">💖</div>
+        <h2 class="ending-title" id="endingTitle"></h2>
+        <div id="endingLines"></div>
+        <p class="ending-signoff" id="endingSignoff"></p>
+        <div class="ending-cat">💗💕</div>
+      </div>
+    </section>
+
+  </div><!-- /phase2 -->
+
+  <!-- Music Player -->
+  <div id="music-player" style="display:none;">
+    <button id="musicToggle" onclick="toggleMusic()">🎵</button>
+    <button id="muteToggle" onclick="toggleMute()">🔊</button>
+    <input type="range" id="volumeSlider" min="0" max="100" value="30" oninput="setVolume(this.value)" />
+  </div>
+
+  <!-- Lightbox -->
+  <div id="lightbox" onclick="closeLightbox()">
+    <button class="close-lb">✕</button>
+    <img id="lightboxImg" src="" alt="Full view" />
+  </div>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
